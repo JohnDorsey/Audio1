@@ -39,8 +39,7 @@ public class Line {
 
             //new PlayThread().start();
         }catch (Exception e) {
-            e.printStackTrace();
-            System.exit(0);
+            System.err.println(e);
         }//end catch
     }//end playAudio
 
@@ -94,8 +93,7 @@ public class Line {
             sourceDataLine.close();
 
         }catch (Exception e) {
-            e.printStackTrace();
-            System.exit(0);
+            System.err.println(e);
         }//end catch
     }
 
