@@ -50,7 +50,7 @@ public class OutStream {
     }
 
 
-    public void dotDisplay(byte[] toDisplay) {
+    public static void dotDisplay(byte[] toDisplay) {
         for (int i = 0; i < toDisplay.length; i+=4) {
             dotAt((int) toDisplay[i]); System.out.print("\n");
         }
@@ -60,7 +60,7 @@ public class OutStream {
         System.out.print(blank.substring(0, (pos + 256))  + "####");
     }
 
-    public void byteDisplay(byte[] toDisplay) {
+    public static void byteDisplay(byte[] toDisplay) {
         String thisByte;
         for (int i = 0; i < toDisplay.length; i+=2) {
             thisByte = "                ";

@@ -2,6 +2,7 @@ package com.github.JohnDorsey.audio1;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.util.Random;
 
 /**
  * Created by John on 10/30/15.
@@ -10,16 +11,20 @@ public class InStream {
     public String type;
     public String fileName;
     public File openFile;
+    public InHandle parent;
 
     static AudioFormat audioFormat;
     static AudioInputStream audioInputStream;
     static SourceDataLine sourceDataLine;
 
+    Random rnd = new Random();
 
-    public InStream(String nType, String nFileName) {
+
+    public InStream(String nType, String nFileName, InHandle nParent) {
         type = nType;
         fileName = nFileName;
         openFile = new File(fileName);
+        parent = nParent;
         if (type == "standard") {
             try {
                 audioInputStream = AudioSystem.getAudioInputStream(openFile);
@@ -32,6 +37,7 @@ public class InStream {
 
     }
 
+
     public void read() {
         if (type == "standard") {
             readStandard();
@@ -40,19 +46,42 @@ public class InStream {
         }
     }
 
+
     public void readStandard() {
-        //byte tempBuffer[] = new byte[4096];
         try{
             sourceDataLine.open(audioFormat);
             sourceDataLine.start();
-
             int amount;
-            //Keep looping until the input read method
-            // returns -1 for empty stream
-            while((amount = audioInputStream.read(
-                    Audio1.storedSound,0,Audio1.storedSound.length)) != -1){
-                //if(amount > 0){
-                //}//end if
+
+            //while((amount = audioInputStream.read(Audio1.storedSound, 0, Audio1.storedSound.length)) != -1) {
+            //    parent.currentLocation += amount;
+            //}//end while
+
+            byte cb[] = new byte[1];
+            get:
+            //while((amount = audioInputStream.read(cb, 0, 1)) != -1) {
+
+            while (audioInputStream.read(cb) != -1) {
+                //System.out.println("InStream redStandard");
+                //parent.currentData.add(cb[0]);
+                //parent.currentData.add((byte) rnd.nextInt(127));
+
+
+                Byte cbi;
+
+                //sotd
+                //for (int i = 0; i < 65536; i++) {
+                //int i = parent.currentLocation;
+                    cbi = new Byte(Integer.toString((parent.currentLocation%16)*4));
+                    parent.currentData.add(cbi);
+                    System.out.println(parent.currentLocation + " " + cbi);
+                //OutStream.dotAt((int) cbi);
+                //}
+
+
+                parent.currentLocation += 1;
+                //System.out.println(amount);
+                if (parent.currentLocation >= 65536) { break get; }
             }//end while
 
             //Block and wait for internal buffer of the
@@ -66,12 +95,15 @@ public class InStream {
         }//end catch
     }
 
+
+
+
     public void synthOfTheDay() {
-        Byte cb;
-        for (int i = 0; i < Audio1.storedSound.length; i++) {
-            cb = new Byte(Integer.toString((((i%920) /16) + ((i%800) /16))-128));
-            Audio1.storedSound[i] = cb;
-        }
+        //Byte cb;
+        //for (int i = 0; i < Audio1.storedSound.length(); i++) {
+        //    cb = new Byte(Integer.toString(((((i%400)/12) + (i%600) /16) + ((i%750) /16))-128));
+        //    Audio1.storedSound[i] = cb;
+        //}
     }
 
 

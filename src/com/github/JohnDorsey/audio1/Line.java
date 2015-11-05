@@ -8,6 +8,9 @@ import java.io.File;
  */
 public class Line {
 
+    /*
+
+
     static AudioFormat audioFormat;
     static AudioInputStream audioInputStream;
     static SourceDataLine sourceDataLine;
@@ -103,13 +106,15 @@ public class Line {
             case 0: { playAudio(); } break;
         }
         switch (destination) {
-            case 0: { playTo(0); /*new PlayThread().start();*/ }
+            case 0: { playTo(0); /*new PlayThread().start(); }
             case 1: { playTo(1); }
         }
+
+
+
     }
 
-
-
+*/
 
 
 }
