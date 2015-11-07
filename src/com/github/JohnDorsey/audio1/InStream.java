@@ -58,6 +58,9 @@ public class InStream {
             //}//end while
 
             byte cb[] = new byte[1];
+
+
+            Byte cbi;
             get:
             //while((amount = audioInputStream.read(cb, 0, 1)) != -1) {
 
@@ -67,14 +70,15 @@ public class InStream {
                 //parent.currentData.add((byte) rnd.nextInt(127));
 
 
-                Byte cbi;
 
                 //sotd
                 //for (int i = 0; i < 65536; i++) {
                 //int i = parent.currentLocation;
-                    cbi = new Byte(Integer.toString((parent.currentLocation%16)*4));
-                    parent.currentData.add(cbi);
-                    System.out.println(parent.currentLocation + " " + cbi);
+
+                cbi = new Byte(Integer.toString((parent.currentLocation%16)*4));
+
+                System.out.println(parent.currentLocation + " " + cbi);
+                parent.currentData.add(cbi);
                 //OutStream.dotAt((int) cbi);
                 //}
 

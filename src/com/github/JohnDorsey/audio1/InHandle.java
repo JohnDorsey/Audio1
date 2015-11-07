@@ -25,8 +25,14 @@ public class InHandle {
     public void read() {
         inStream.read();
         //Audio1.storedSound = (byte[]) currentData.toArray(Audio1.storedSound);
+        for (int i = 0; i < 512; i++) {System.out.println(currentData.poll());}
+        Byte cb = new Byte("0");
+        System.out.println("inHandle reading");
         for (int i = 0; i < 65536; i++) {
-            Audio1.storedSound.add(currentData.poll());
+            cb = currentData.poll();
+            System.out.println(i + " " + cb);
+            Audio1.storedSound.add(cb);
+            //Audio1.storedSound.add(currentData.poll());
         }
     }
 
