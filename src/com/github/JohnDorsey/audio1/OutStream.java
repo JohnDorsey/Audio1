@@ -37,8 +37,7 @@ public class OutStream {
         }
     }
 
-
-
+    
     public void play(byte[] toPlay) {
         try {
             sourceDataLine.open(audioFormat);
