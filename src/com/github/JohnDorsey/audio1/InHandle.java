@@ -11,7 +11,8 @@ public class InHandle {
     String type;
     String fileName;
     InStream inStream;
-    PriorityQueue<Byte> currentData = new PriorityQueue<Byte>();
+    //PriorityQueue<Byte> currentData = new PriorityQueue<Byte>();
+    Q currentData = new Q();
     int currentLocation;
 
 
@@ -24,13 +25,12 @@ public class InHandle {
 
     public void read() {
         inStream.read();
-        //Audio1.storedSound = (byte[]) currentData.toArray(Audio1.storedSound);
-        for (int i = 0; i < 512; i++) {System.out.println(currentData.poll());}
+        //for (int i = 0; i < 512; i++) {System.out.println(currentData.poll());}
         Byte cb = new Byte("0");
-        System.out.println("inHandle reading");
+        //System.out.println("inHandle reading");
         for (int i = 0; i < 65536; i++) {
-            cb = currentData.poll();
-            System.out.println(i + " " + cb);
+            cb = currentData.get();
+            //System.out.println(i + " " + cb);
             Audio1.storedSound.add(cb);
             //Audio1.storedSound.add(currentData.poll());
         }
