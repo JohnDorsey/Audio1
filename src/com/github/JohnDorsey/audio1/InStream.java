@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by John on 10/30/15.
  */
-public class InStream {
+public class InStream extends Thread {
     public String type;
     public String fileName;
     public File openFile;
@@ -17,6 +17,8 @@ public class InStream {
     static AudioFormat audioFormat;
     static AudioInputStream audioInputStream;
     static SourceDataLine sourceDataLine;
+
+    public static Q content = new Q();
 
 
     Random rnd = new Random();
@@ -33,16 +35,46 @@ public class InStream {
                 audioFormat = audioInputStream.getFormat();
                 DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
                 sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-                System.out.println("InStream:");
-                System.out.println("audioInputStream: " + audioInputStream);
-                System.out.println("audioFormat: " + audioFormat);
-                System.out.println("sourceDataLine: " + sourceDataLine);
-                System.out.println("dataLineInfo: " + dataLineInfo);
+                //System.out.println("InStream:");
+                //System.out.println("audioInputStream: " + audioInputStream);
+                //System.out.println("audioFormat: " + audioFormat);
+                //System.out.println("sourceDataLine: " + sourceDataLine);
+                //System.out.println("dataLineInfo: " + dataLineInfo);
             } catch (Exception e) { System.err.println(e); }
         }
 
     }
 
+    @Override
+    public void run() {
+        for (int i = 0; i < 262144; i++) {
+            loadTwoBytes();
+        }
+
+    }
+
+    public void loadTwoBytes() {
+        if (content.canFit(2)) {
+            try {
+                byte cb[] = new byte[2];
+                cb[0] = 0;
+                cb[1] = 0;
+                audioInputStream.read(cb, 0, 2);
+                content.add(cb[0]);
+                content.add(cb[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(0);
+            }//end catch
+        }
+    }
+
+    public byte read() {
+        return content.get();
+    }
+
+
+    /*
 
     public void read() {
         if (type == "standard") {
@@ -58,12 +90,12 @@ public class InStream {
             sourceDataLine.open(audioFormat);
             sourceDataLine.start();
 
-            System.out.println("InStream: Read started:");
-            System.out.println("audioInputStream: " + audioInputStream);
-            System.out.println("audioFormat: " + audioFormat);
-            System.out.println("sourceDataLine: " + sourceDataLine);
+            //System.out.println("InStream: Read started:");
+            //System.out.println("audioInputStream: " + audioInputStream);
+            //System.out.println("audioFormat: " + audioFormat);
+            //System.out.println("sourceDataLine: " + sourceDataLine);
 
-            int amount;
+            //int amount;
 
             //while((amount = audioInputStream.read(Audio1.storedSound, 0, Audio1.storedSound.length)) != -1) {
             //    parent.currentLocation += amount;
@@ -73,35 +105,11 @@ public class InStream {
             //System.out.println(audioInputStream);
 
             //Byte cbi;
+
             get:
-            //while((amount = audioInputStream.read(cb, 0, 1)) != -1) {
-
-            //while (audioInputStream.read(cb, 0, 1) != -1) {
-
             while (1==1) {
-                byte cb[] = new byte[2];
-                cb[0] = 4;
-                cb[1] = 6;
-                //cb[0] = audioInputStream.read();
-                amount = audioInputStream.read(cb, 0, 2);
-
-
-
-
-                //sotd
-                //for (int i = 0; i < 65536; i++) {
-                //int i = parent.currentLocation;
-
-                //cbi = new Byte(Integer.toString((parent.currentLocation%16)*4));
-
-                System.out.println(Arrays.toString(cb));
-                parent.currentData.add(cb[0]);
-                parent.currentData.add(cb[1]);
-                //parent.currentData.add((parent.currentLocation%252)/2);
-
-
+                loadTwoBytes();
                 parent.currentLocation += 1;
-                System.out.println(amount);
                 if (parent.currentLocation >= 65536) { break get; }
             }//end while
 
@@ -109,7 +117,6 @@ public class InStream {
             // data line to empty.
             sourceDataLine.drain();
             sourceDataLine.close();
-
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -129,7 +136,7 @@ public class InStream {
 
 
 
-
+*/
 
 
 
