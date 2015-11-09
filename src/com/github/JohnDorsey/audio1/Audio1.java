@@ -50,8 +50,8 @@ public class Audio1 {
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
-        play.write(storedSound.bytes);
-        show.write(storedSound.bytes);
+        //play.write(storedSound.bytes);
+        //show.write(storedSound.bytes);
         //show.write(temprim);
 
 

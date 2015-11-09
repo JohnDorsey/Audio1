@@ -2,6 +2,7 @@ package com.github.JohnDorsey.audio1;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -17,6 +18,7 @@ public class InStream {
     static AudioInputStream audioInputStream;
     static SourceDataLine sourceDataLine;
 
+
     Random rnd = new Random();
 
 
@@ -31,7 +33,11 @@ public class InStream {
                 audioFormat = audioInputStream.getFormat();
                 DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
                 sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-                System.out.println(audioFormat);
+                System.out.println("InStream:");
+                System.out.println("audioInputStream: " + audioInputStream);
+                System.out.println("audioFormat: " + audioFormat);
+                System.out.println("sourceDataLine: " + sourceDataLine);
+                System.out.println("dataLineInfo: " + dataLineInfo);
             } catch (Exception e) { System.err.println(e); }
         }
 
@@ -51,23 +57,33 @@ public class InStream {
         try{
             sourceDataLine.open(audioFormat);
             sourceDataLine.start();
+
+            System.out.println("InStream: Read started:");
+            System.out.println("audioInputStream: " + audioInputStream);
+            System.out.println("audioFormat: " + audioFormat);
+            System.out.println("sourceDataLine: " + sourceDataLine);
+
             int amount;
 
             //while((amount = audioInputStream.read(Audio1.storedSound, 0, Audio1.storedSound.length)) != -1) {
             //    parent.currentLocation += amount;
             //}//end while
 
-            byte cb[] = new byte[1];
 
+            //System.out.println(audioInputStream);
 
             //Byte cbi;
             get:
             //while((amount = audioInputStream.read(cb, 0, 1)) != -1) {
 
-            while (audioInputStream.read(cb) != -1) {
-                //System.out.println("InStream redStandard");
-                //parent.currentData.add(cb[0]);
-                //parent.currentData.add((byte) rnd.nextInt(127));
+            //while (audioInputStream.read(cb, 0, 1) != -1) {
+
+            while (1==1) {
+                byte cb[] = new byte[2];
+                cb[0] = 4;
+                cb[1] = 6;
+                //cb[0] = audioInputStream.read();
+                amount = audioInputStream.read(cb, 0, 2);
 
 
 
@@ -78,17 +94,14 @@ public class InStream {
 
                 //cbi = new Byte(Integer.toString((parent.currentLocation%16)*4));
 
-
-
-                //System.out.println(parent.currentLocation + " " + cbi);
-                //parent.currentData.add(cbi);
-                //OutStream.dotAt((int) cbi);
-                //}
-                parent.currentData.add((parent.currentLocation%126)*1);
+                System.out.println(Arrays.toString(cb));
+                parent.currentData.add(cb[0]);
+                parent.currentData.add(cb[1]);
+                //parent.currentData.add((parent.currentLocation%252)/2);
 
 
                 parent.currentLocation += 1;
-                //System.out.println(amount);
+                System.out.println(amount);
                 if (parent.currentLocation >= 65536) { break get; }
             }//end while
 
@@ -114,6 +127,20 @@ public class InStream {
         //}
     }
 
+
+
+
+
+
+
+    //System.out.println("InStream redStandard");
+    //parent.currentData.add(cb[0]);
+    //parent.currentData.add((byte) rnd.nextInt(127));
+
+    //System.out.println(parent.currentLocation + " " + cbi);
+    //parent.currentData.add(cbi);
+    //OutStream.dotAt((int) cbi);
+    //}
 
 
 

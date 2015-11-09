@@ -10,17 +10,17 @@ public class InHandle {
 
     String type;
     String fileName;
-    InStream inStream;
     //PriorityQueue<Byte> currentData = new PriorityQueue<Byte>();
     Q currentData = new Q();
     int currentLocation;
+    InStream inStream;
 
 
     public InHandle(String nType, String nFileName) {
         type = nType;
         fileName = nFileName;
         currentLocation = 0;
-        inStream = new InStream(type, fileName, this);
+        inStream = new InStream(nType, nFileName, this);
     }
 
     public void read() {
