@@ -45,11 +45,11 @@ public class Q {
         byte result;
         //if (start == end - 1) { return 0; }
         start++;
-        if (start == bufferSize) { start = 1; }
-        if (start == 0) { start++; }
+        if (start == bufferSize + 1) { start = 1; }
+        //if (start == 0) { start++; }
         //System.out.println("Q asked for " + bytes[start-1]);
         result = bytes[start-1];
-        bytes[start-1] = (byte) 123;
+        bytes[start-1] = (byte) 2;
         return result;
     }
 

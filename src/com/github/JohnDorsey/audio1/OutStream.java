@@ -56,7 +56,7 @@ public class OutStream {
     }
 
     public static void dotAt(int pos) {
-        System.out.print(blank.substring(0, (pos + 256))  + "####");
+        System.out.print(blank.substring(0, (pos + 129))  + "#" + pos);
     }
 
     public static void byteDisplay(byte[] toDisplay) {

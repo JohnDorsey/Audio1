@@ -40,11 +40,15 @@ public class InHandle extends Thread {
         inStream.loadTwoBytes();
         inStream.loadTwoBytes();
         inStream.loadTwoBytes();
+        //inStream.content.start++;
+        //inStream.start();
         for (int i = 0; i < 262144; i++) {
             //cb = inStream.content.get();
             //System.out.println(i + " " + cb);
             //Audio1.storedSound.add(cb);
             inStream.loadTwoBytes();
+            cb = inStream.read();
+            Audio1.storedSound.add(cb);
             cb = inStream.read();
             Audio1.storedSound.add(cb);
             //Audio1.storedSound.add(currentData.poll());

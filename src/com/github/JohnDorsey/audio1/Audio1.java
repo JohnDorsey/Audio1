@@ -13,7 +13,7 @@ public class Audio1 {
     public static int i;
     //public static Byte[] storedSound = new Byte[65536];
     //public static PriorityQueue<Byte> storedSound = new PriorityQueue<Byte>();
-    public static Q storedSound = new Q(262144);
+    public static Q storedSound = new Q(18000);
 
 
     public static void main (String[] args) {
@@ -67,6 +67,10 @@ public class Audio1 {
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
+        show.write(storedSound.bytes);
+
+        //play.write(storedSound.bytes);
+        //play.write(storedSound.bytes);
         //play.write(clink.inStream.content.bytes);
         //play.write(storedSound.bytes);
         //show.write(storedSound.bytes);
