@@ -18,7 +18,7 @@ public class InStream extends Thread {
     static AudioInputStream audioInputStream;
     static SourceDataLine sourceDataLine;
 
-    public static Q content = new Q();
+    public static Q content = new Q(16384);
 
 
     Random rnd = new Random();
@@ -43,6 +43,8 @@ public class InStream extends Thread {
             } catch (Exception e) { System.err.println(e); }
         }
 
+        content.print = true;
+
     }
 
     @Override
@@ -60,7 +62,9 @@ public class InStream extends Thread {
                 cb[0] = 0;
                 cb[1] = 0;
                 audioInputStream.read(cb, 0, 2);
-                content.add(cb[0]);
+                //cb[0] += 2;
+                //cb[1] += 8;
+                content.add(cb[1]);
                 content.add(cb[1]);
             } catch (Exception e) {
                 e.printStackTrace();

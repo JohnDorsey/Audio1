@@ -11,7 +11,7 @@ public class InHandle extends Thread {
     String type;
     String fileName;
     //PriorityQueue<Byte> currentData = new PriorityQueue<Byte>();
-    Q currentData = new Q();
+    //Q currentData = new Q(32768);
     int currentLocation;
     InStream inStream;
 
@@ -28,12 +28,25 @@ public class InHandle extends Thread {
         //for (int i = 0; i < 512; i++) {System.out.println(currentData.poll());}
         //Byte cb = new Byte("0");
         //System.out.println("inHandle reading");
-        for (int i = 0; i < 65536; i++) {
+
+        byte cb;
+
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        inStream.loadTwoBytes();
+        for (int i = 0; i < 262144; i++) {
             //cb = inStream.content.get();
             //System.out.println(i + " " + cb);
             //Audio1.storedSound.add(cb);
             inStream.loadTwoBytes();
-            Audio1.storedSound.add(inStream.read());
+            cb = inStream.read();
+            Audio1.storedSound.add(cb);
             //Audio1.storedSound.add(currentData.poll());
         }
     }

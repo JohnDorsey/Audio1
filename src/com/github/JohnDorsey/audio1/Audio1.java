@@ -1,5 +1,6 @@
 package com.github.JohnDorsey.audio1;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
@@ -12,7 +13,7 @@ public class Audio1 {
     public static int i;
     //public static Byte[] storedSound = new Byte[65536];
     //public static PriorityQueue<Byte> storedSound = new PriorityQueue<Byte>();
-    public static Q storedSound = new Q();
+    public static Q storedSound = new Q(262144);
 
 
     public static void main (String[] args) {
@@ -32,6 +33,22 @@ public class Audio1 {
         //OutStream display = new OutStream("byteDisplay", "NA", clink.audioFormat);
         //display.write(storedSound);
 
+        //Q qTest = new Q();
+        //for (int i = 0; i < 96; i++) {
+        //    qTest.add(3);
+        //}
+        //System.out.println(Arrays.toString(qTest.bytes));
+        //for (int i = 0; i <4; i++) {
+        //    qTest.get();
+        //}
+        //System.out.println(Arrays.toString(qTest.bytes));
+        //for (int i = 0; i < 100; i++) {
+        //    qTest.add(5);
+        //}
+        //System.out.println(Arrays.toString(qTest.bytes));
+
+
+
         InHandle clink = new InHandle("standard", "clink_sound (1).wav");
         clink.read();
 
@@ -50,6 +67,7 @@ public class Audio1 {
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
         play.write(storedSound.bytes);
+        //play.write(clink.inStream.content.bytes);
         //play.write(storedSound.bytes);
         //show.write(storedSound.bytes);
         //show.write(temprim);
